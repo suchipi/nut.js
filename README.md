@@ -1,9 +1,9 @@
-# nut.js (Native UI Toolkit) 
+# nut.js (Native UI Toolkit)
 
-|	|GitHub Actions|
-|:-:	|:-:	|
-|Master |![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)|
-|Develop|![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg)|
+|         |                                                 GitHub Actions                                                 |
+| :-----: | :------------------------------------------------------------------------------------------------------------: |
+| Master  |   ![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)   |
+| Develop | ![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg) |
 
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
@@ -44,7 +44,6 @@ A huge **"Thank you!"** goes out to all sponsors who make open source a bit more
 <hr/>
 
 [<img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/sponsors/mighty.svg" height="75" alt="Mighty browser logo"/>](https://www.mightyapp.com)
-
 
 # Demo
 
@@ -118,7 +117,16 @@ The following snippet shows a valid `nut.js` example:
 ```js
 "use strict";
 
-const { mouse, left, right, up, down, straightTo, centerOf, Region} = require("@nut-tree/nut-js");
+const {
+  mouse,
+  left,
+  right,
+  up,
+  down,
+  straightTo,
+  centerOf,
+  Region,
+} = require("@nut-tree/nut-js");
 
 const square = async () => {
   await mouse.move(right(500));
@@ -128,14 +136,8 @@ const square = async () => {
 };
 
 (async () => {
-    await square();
-    await mouse.move(
-        straightTo(
-            centerOf(
-                new Region(100, 100, 200, 300)
-            )
-        )
-    );
+  await square();
+  await mouse.move(straightTo(centerOf(new Region(100, 100, 200, 300))));
 })();
 ```
 
@@ -155,6 +157,7 @@ In case you're running Windows 10 N, please make sure to have the [Media Feature
 
 On macOS, Xcode command line tools are required.
 You can install them by running
+
 ```bash
 xcode-select --install
 ```
@@ -189,6 +192,7 @@ In general, `nut.js` requires
 - libXtst
 
 Installation on `*buntu` distributions:
+
 ```bash
 sudo apt-get install libxtst-dev
 ```
@@ -197,7 +201,7 @@ Setups on other distributions might differ.
 
 ## Install `nut.js`
 
-Running 
+Running
 
 ```bash
 npm i @nut-tree/nut-js
@@ -215,7 +219,7 @@ will install `nut.js` and its required dependencies.
 
 `nut.js` also provides snapshot releases which allows to test upcoming features.
 
-Running 
+Running
 
 ```bash
 npm i @nut-tree/nut-js@next

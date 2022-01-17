@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## 2.0.0
+
 - Feature: Apple Silicon [(libnut#49)](https://github.com/nut-tree/libnut/issues/49)
 - Enhancement: Enable warning message for missing accessibility permissions on macOS [(#354)](https://github.com/nut-tree/nut.js/issues/354)
 - Enhancement: Add runtime typechecks for `screen.find` etc. [(#351)](https://github.com/nut-tree/nut.js/issues/351)
@@ -31,14 +32,16 @@ All notable changes to this project will be documented in this file.
 - Feature: Add methods to grab the current screen content as Buffer [(#278)](https://github.com/nut-tree/nut.js/issues/278)
 
 ## 1.7.0
+
 - Enhancement: Trigger snapshot releases [(#234)](https://github.com/nut-tree/nut.js/issues/234)
 - Feature: Cancel screen.waitFor if needed [(#241)](https://github.com/nut-tree/nut.js/issues/241)
 - Enhancement: Move docs into separate repo [(#244)](https://github.com/nut-tree/nut.js/issues/244)
 - Feature: Support for node 16 and Electron 13 [(#246)](https://github.com/nut-tree/nut.js/issues/246)
 
 ## 1.6.0
+
 - Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
-- Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205) 
+- Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205)
 - Maintenance: Use default exports for all provider classes [(#163)](https://github.com/nut-tree/nut.js/issues/163)
 - Enhancement: imprecise error message if image is too large [(#169)](https://github.com/nut-tree/nut.js/issues/169)
 - Bugfix: `waitFor` does not properly cancel [(#174)](https://github.com/nut-tree/nut.js/issues/174)
