@@ -53,7 +53,7 @@ export class MouseClass {
   /**
    * {@link getPosition} returns a {@link Point} representing the current mouse position
    */
-  public getPosition(): Promise<Point> {
+  public getPosition(): Point {
     return this.providerRegistry.getMouse().currentMousePosition();
   }
 

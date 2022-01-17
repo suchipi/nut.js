@@ -22,124 +22,48 @@ export default class MouseAction implements MouseProviderInterface {
     libnut.setMouseDelay(delay);
   }
 
-  public setMousePosition(p: Point): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.moveMouse(p.x, p.y);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public setMousePosition(p: Point): void {
+    libnut.moveMouse(p.x, p.y);
   }
 
-  public currentMousePosition(): Promise<Point> {
-    return new Promise<Point>((resolve, reject) => {
-      try {
-        const position = libnut.getMousePos();
-        resolve(new Point(position.x, position.y));
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public currentMousePosition(): Point {
+    const position = libnut.getMousePos();
+    return new Point(position.x, position.y);
   }
 
-  public leftClick(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.LEFT));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public leftClick(): void {
+    libnut.mouseClick(MouseAction.buttonLookup(Button.LEFT));
   }
 
-  public rightClick(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.RIGHT));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public rightClick(): void {
+    libnut.mouseClick(MouseAction.buttonLookup(Button.RIGHT));
   }
 
-  public middleClick(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.MIDDLE));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public middleClick(): void {
+    libnut.mouseClick(MouseAction.buttonLookup(Button.MIDDLE));
   }
 
-  public pressButton(btn: Button): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.mouseToggle("down", MouseAction.buttonLookup(btn));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public pressButton(btn: Button): void {
+    libnut.mouseToggle("down", MouseAction.buttonLookup(btn));
   }
 
-  public releaseButton(btn: Button): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.mouseToggle("up", MouseAction.buttonLookup(btn));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public releaseButton(btn: Button): void {
+    libnut.mouseToggle("up", MouseAction.buttonLookup(btn));
   }
 
-  public scrollUp(amount: number): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.scrollMouse(0, amount);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollUp(amount: number): void {
+    libnut.scrollMouse(0, amount);
   }
 
-  public scrollDown(amount: number): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.scrollMouse(0, -amount);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollDown(amount: number): void {
+    libnut.scrollMouse(0, -amount);
   }
 
-  public scrollLeft(amount: number): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.scrollMouse(-amount, 0);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollLeft(amount: number): void {
+    libnut.scrollMouse(-amount, 0);
   }
 
-  public scrollRight(amount: number): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.scrollMouse(amount, 0);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollRight(amount: number): void {
+    libnut.scrollMouse(amount, 0);
   }
 }

@@ -17,69 +17,69 @@ export interface MouseProviderInterface {
    *
    * @param p The {@link Point} to which the mouse pointer should be set
    */
-  setMousePosition(p: Point): Promise<void>;
+  setMousePosition(p: Point): void;
 
   /**
    * currentMousePosition should return the current mouse pointer position
    *
    * @returns The current mouse pointer position
    */
-  currentMousePosition(): Promise<Point>;
+  currentMousePosition(): Point;
 
   /**
    * leftClick should allow to perform a left click via OS event
    */
-  leftClick(): Promise<void>;
+  leftClick(): void;
 
   /**
    * rightClick should allow to perform a right click via OS event
    */
-  rightClick(): Promise<void>;
+  rightClick(): void;
 
   /**
    * middleClick should allow to perform a middle click via OS event
    */
-  middleClick(): Promise<void>;
+  middleClick(): void;
 
   /**
    * scrollUp should allow to perform an upward mouse scroll
    *
    * @param amount The scroll amount
    */
-  scrollUp(amount: number): Promise<void>;
+  scrollUp(amount: number): void;
 
   /**
    * scrollDown should allow to perform an downward mouse scroll
    *
    * @param amount The scroll amount
    */
-  scrollDown(amount: number): Promise<void>;
+  scrollDown(amount: number): void;
 
   /**
    * scrollLeft should allow to perform a left mouse scroll
    *
    * @param amount The scroll amount
    */
-  scrollLeft(amount: number): Promise<void>;
+  scrollLeft(amount: number): void;
 
   /**
    * scrollRight should perform a right mouse scroll
    *
    * @param amount The scroll amount
    */
-  scrollRight(amount: number): Promise<void>;
+  scrollRight(amount: number): void;
 
   /**
    * pressButton should allow to press and hold a mouse button
    *
    * @param btn The {@link Button} to press and hold
    */
-  pressButton(btn: Button): Promise<void>;
+  pressButton(btn: Button): void;
 
   /**
    * releaseButton should allow to release a pressed button
    *
    * @param btn The {@link Button} to release
    */
-  releaseButton(btn: Button): Promise<void>;
+  releaseButton(btn: Button): void;
 }
