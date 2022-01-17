@@ -33,8 +33,8 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
           )
         );
       },
-      screenSize(): Promise<Region> {
-        return Promise.resolve(searchRegion);
+      screenSize(): Region {
+        return searchRegion;
       },
     });
   },

@@ -1,5 +1,5 @@
 import { Key } from "./key.enum";
-import { sleep } from "./sleep.function";
+import { sleepSync } from "./sleep.function";
 import { ProviderRegistry } from "./provider/provider-registry.class";
 
 type StringOrKey = string[] | Key[];
@@ -42,22 +42,17 @@ export class KeyboardClass {
    *
    * @param input Sequence of {@link String} or {@link Key} to type
    */
-  public type(...input: StringOrKey): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        if (inputIsString(input)) {
-          for (const char of input.join(" ").split("")) {
-            await sleep(this.config.autoDelayMs);
-            await this.providerRegistry.getKeyboard().type(char);
-          }
-        } else {
-          await this.providerRegistry.getKeyboard().click(...(input as Key[]));
-        }
-        resolve(this);
-      } catch (e) {
-        reject(e);
+  public type(...input: StringOrKey): KeyboardClass {
+    if (inputIsString(input)) {
+      for (const char of input.join(" ").split("")) {
+        sleepSync(this.config.autoDelayMs);
+        this.providerRegistry.getKeyboard().type(char);
       }
-    });
+    } else {
+      this.providerRegistry.getKeyboard().click(...(input as Key[]));
+    }
+
+    return this;
   }
 
   /**
@@ -71,15 +66,9 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to press and hold
    */
-  public pressKey(...keys: Key[]): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getKeyboard().pressKey(...keys);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public pressKey(...keys: Key[]): KeyboardClass {
+    this.providerRegistry.getKeyboard().pressKey(...keys);
+    return this;
   }
 
   /**
@@ -93,14 +82,8 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to release
    */
-  public releaseKey(...keys: Key[]): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getKeyboard().releaseKey(...keys);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public releaseKey(...keys: Key[]): KeyboardClass {
+    this.providerRegistry.getKeyboard().releaseKey(...keys);
+    return this;
   }
 }

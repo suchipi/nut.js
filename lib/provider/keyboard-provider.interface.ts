@@ -16,26 +16,26 @@ export interface KeyboardProviderInterface {
    *
    * @param input The text to type
    */
-  type(input: string): Promise<void>;
+  type(input: string): void;
 
   /**
    * Click should allow to press a single key via OS level keyboard event
    *
    * @param keys Array of {@link Key}s to click
    */
-  click(...keys: Key[]): Promise<void>;
+  click(...keys: Key[]): void;
 
   /**
    * pressKey should allow to press and hold a key via OS level keyboard event
    *
    * @param keys Array of {@link Key}s to press and hold
    */
-  pressKey(...keys: Key[]): Promise<void>;
+  pressKey(...keys: Key[]): void;
 
   /**
    * releaseKey should release a pressed key via OS level keyboard event
    *
    * @param keys Array of {@link Key}s to release
    */
-  releaseKey(...keys: Key[]): Promise<void>;
+  releaseKey(...keys: Key[]): void;
 }

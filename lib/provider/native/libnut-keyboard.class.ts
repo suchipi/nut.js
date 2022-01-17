@@ -157,75 +157,40 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     key: Key,
     event: "up" | "down",
     ...modifiers: Key[]
-  ): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        const nativeKey = KeyboardAction.keyLookup(key);
-        const modifierKeys = this.mapModifierKeys(...modifiers);
-        if (nativeKey) {
-          libnut.keyToggle(nativeKey, event, modifierKeys);
-        }
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  ): void {
+    const nativeKey = KeyboardAction.keyLookup(key);
+    const modifierKeys = this.mapModifierKeys(...modifiers);
+    if (nativeKey) {
+      libnut.keyToggle(nativeKey, event, modifierKeys);
+    }
   }
 
   constructor() {}
 
-  public type(input: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        libnut.typeString(input);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public type(input: string): void {
+    libnut.typeString(input);
   }
 
-  public click(...keys: Key[]): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        keys.reverse();
-        const [key, ...modifiers] = keys;
-        const nativeKey = KeyboardAction.keyLookup(key);
-        const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
-        if (nativeKey) {
-          libnut.keyTap(nativeKey, modifierKeys);
-        }
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public click(...keys: Key[]): void {
+    keys.reverse();
+    const [key, ...modifiers] = keys;
+    const nativeKey = KeyboardAction.keyLookup(key);
+    const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
+    if (nativeKey) {
+      libnut.keyTap(nativeKey, modifierKeys);
+    }
   }
 
-  public pressKey(...keys: Key[]): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        keys.reverse();
-        const [key, ...modifiers] = keys;
-        await KeyboardAction.key(key, "down", ...modifiers);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public pressKey(...keys: Key[]): void {
+    keys.reverse();
+    const [key, ...modifiers] = keys;
+    KeyboardAction.key(key, "down", ...modifiers);
   }
 
-  public releaseKey(...keys: Key[]): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        keys.reverse();
-        const [key, ...modifiers] = keys;
-        await KeyboardAction.key(key, "up", ...modifiers);
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public releaseKey(...keys: Key[]): void {
+    keys.reverse();
+    const [key, ...modifiers] = keys;
+    KeyboardAction.key(key, "up", ...modifiers);
   }
 
   public setKeyboardDelay(delay: number): void {

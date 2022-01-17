@@ -91,36 +91,18 @@ export default class ScreenAction implements ScreenProviderInterface {
     });
   }
 
-  public screenWidth(): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      try {
-        const size = libnut.getScreenSize();
-        resolve(size.width);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public screenWidth(): number {
+    const size = libnut.getScreenSize();
+    return size.width;
   }
 
-  public screenHeight(): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      try {
-        const size = libnut.getScreenSize();
-        resolve(size.height);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public screenHeight(): number {
+    const size = libnut.getScreenSize();
+    return size.height;
   }
 
-  public screenSize(): Promise<Region> {
-    return new Promise<Region>((resolve, reject) => {
-      try {
-        const screenSize = libnut.getScreenSize();
-        resolve(new Region(0, 0, screenSize.width, screenSize.height));
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public screenSize(): Region {
+    const screenSize = libnut.getScreenSize();
+    return new Region(0, 0, screenSize.width, screenSize.height);
   }
 }

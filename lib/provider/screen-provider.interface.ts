@@ -41,19 +41,19 @@ export interface ScreenProviderInterface {
    *
    * @returns The screen width
    */
-  screenWidth(): Promise<number>;
+  screenWidth(): number;
 
   /**
    * screenHeight returns a systems main screen height
    *
    * @returns The screen height
    */
-  screenHeight(): Promise<number>;
+  screenHeight(): number;
 
   /**
    * screenSize returns a {@link Region} object the size of a systems main screen
    *
    * @returns The {@link Region} object representing the screen dimensions
    */
-  screenSize(): Promise<Region>;
+  screenSize(): Region;
 }

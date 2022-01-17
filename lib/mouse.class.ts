@@ -1,6 +1,6 @@
 import { Button } from "./button.enum";
 import { isPoint, Point } from "./point.class";
-import { busyWaitForNanoSeconds, sleep } from "./sleep.function";
+import { sleepSync } from "./sleep.function";
 import {
   calculateMovementTimesteps,
   EasingFunction,
@@ -39,20 +39,15 @@ export class MouseClass {
    * {@link setPosition} instantly moves the mouse cursor to a given {@link Point}
    * @param target {@link Point} to move the cursor to
    */
-  public async setPosition(target: Point): Promise<MouseClass> {
+  public setPosition(target: Point): MouseClass {
     if (!isPoint(target)) {
       throw Error(
         `setPosition requires a Point, but received ${JSON.stringify(target)}`
       );
     }
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getMouse().setMousePosition(target);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+
+    this.providerRegistry.getMouse().setMousePosition(target);
+    return this;
   }
 
   /**
@@ -67,55 +62,42 @@ export class MouseClass {
    * @param path Array of {@link Point}s to follow
    * @param movementType Defines the type of mouse movement. Would allow to configured acceleration etc. (Default: {@link linear}, no acceleration)
    */
-  public async move(
-    path: Point[] | Promise<Point[]>,
+  public move(
+    path: Point[],
     movementType: EasingFunction = linear
-  ): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        const pathSteps = await path;
-        const timeSteps = calculateMovementTimesteps(
-          pathSteps.length,
-          this.config.mouseSpeed,
-          movementType
-        );
-        for (let idx = 0; idx < pathSteps.length; ++idx) {
-          const node = pathSteps[idx];
-          const minTime = timeSteps[idx];
-          await busyWaitForNanoSeconds(minTime);
-          await this.setPosition(node);
-        }
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  ): MouseClass {
+    const pathSteps = path;
+    const timeSteps = calculateMovementTimesteps(
+      pathSteps.length,
+      this.config.mouseSpeed,
+      movementType
+    );
+    for (let idx = 0; idx < pathSteps.length; ++idx) {
+      const node = pathSteps[idx];
+      const minTime = timeSteps[idx];
+      sleepSync(minTime);
+      this.setPosition(node);
+    }
+
+    return this;
   }
 
   /**
    * {@link leftClick} performs a click with the left mouse button
    */
-  public async leftClick(): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve) => {
-      await sleep(this.config.autoDelayMs);
-      await this.providerRegistry.getMouse().leftClick();
-      resolve(this);
-    });
+  public leftClick(): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().leftClick();
+    return this;
   }
 
   /**
    * {@link rightClick} performs a click with the right mouse button
    */
-  public async rightClick(): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().rightClick();
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public rightClick(): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().rightClick();
+    return this;
   }
 
   /**
@@ -123,16 +105,10 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollDown(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollDown(amount);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollDown(amount: number): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().scrollDown(amount);
+    return this;
   }
 
   /**
@@ -140,16 +116,10 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollUp(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollUp(amount);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollUp(amount: number): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().scrollUp(amount);
+    return this;
   }
 
   /**
@@ -157,16 +127,10 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollLeft(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollLeft(amount);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollLeft(amount: number): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().scrollLeft(amount);
+    return this;
   }
 
   /**
@@ -174,16 +138,10 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollRight(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollRight(amount);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public scrollRight(amount: number): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().scrollRight(amount);
+    return this;
   }
 
   /**
@@ -191,47 +149,29 @@ export class MouseClass {
    * In summary, {@link drag} presses and holds the left mouse button, moves the mouse and releases the left button
    * @param path The path of {@link Point}s to drag along
    */
-  public async drag(path: Point[] | Promise<Point[]>): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().pressButton(Button.LEFT);
-        await this.move(path);
-        await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public drag(path: Point[]): MouseClass {
+    sleepSync(this.config.autoDelayMs);
+    this.providerRegistry.getMouse().pressButton(Button.LEFT);
+    this.move(path);
+    this.providerRegistry.getMouse().releaseButton(Button.LEFT);
+    return this;
   }
 
   /**
    * {@link pressButton} presses and holds a mouse button
    * @param btn The {@link Button} to press and hold
    */
-  public async pressButton(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getMouse().pressButton(btn);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public pressButton(btn: Button): MouseClass {
+    this.providerRegistry.getMouse().pressButton(btn);
+    return this;
   }
 
   /**
    * {@link releaseButton} releases a mouse button previously pressed via {@link pressButton}
    * @param btn The {@link Button} to release
    */
-  public async releaseButton(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getMouse().releaseButton(btn);
-        resolve(this);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  public releaseButton(btn: Button): MouseClass {
+    this.providerRegistry.getMouse().releaseButton(btn);
+    return this;
   }
 }
